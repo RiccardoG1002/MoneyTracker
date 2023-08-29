@@ -1,9 +1,5 @@
-// Local storage
-export const fetchNonJsonData = (key) => {
-    return localStorage.getItem(key);
-};
-
-export const fetchJsonData = (key) => {
+// fetch item
+export const fetchData = (key) => {
     return JSON.parse(localStorage.getItem(key));
 }
 

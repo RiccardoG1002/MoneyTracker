@@ -10,12 +10,11 @@ import wave from '../assets/wave.svg';
 import Navbar from '../components/Navbar';
 
 // helpers
-import { fetchNonJsonData } from '../helpers'
+import { fetchData } from '../helpers'
 
 // loader
 export function mainLoader() {
-    const userName = fetchNonJsonData('userName');
-    console.log('Ciao da main loader');
+    const userName = fetchData('userName');
     return { userName };
 }
 
@@ -23,7 +22,7 @@ const Main = () => {
     const { userName } = useLoaderData();
     return (
         <div className='layout'>
-            <Navbar usernName={userName}></Navbar>
+            <Navbar userName={userName}></Navbar>
             <main>
                 <Outlet></Outlet>
             </main>
