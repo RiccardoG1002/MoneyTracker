@@ -19,6 +19,7 @@ const Intro = () => {
         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
         <Form method="post">
           <input type="text" name="userName" required placeholder="What is your name" aria-label="your name" autoComplete="given-name" />
+          <input type="hidden" name="_action" value="newUser" />
           <button type="submit" className="btn">
             <span>Create account</span>
             <UserPlusIcon width={30}></UserPlusIcon>
