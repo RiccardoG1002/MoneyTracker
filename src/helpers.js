@@ -1,3 +1,6 @@
+// simulate synchronous calls
+export const wait = () => new Promise(res => setTimeout(res, Math.random() * 2000));
+
 // generate random color
 const generateRandomColor = () => {
     const exisitingBudgetLength = fetchData('budgets')?.length ?? 0;
@@ -25,4 +28,17 @@ export const createBudget = ({ name, amount }) => {
     }
     const existingBudget = fetchData('budgets') ?? [];
     return localStorage.setItem('budgets', JSON.stringify([...existingBudget, newItem]));
+}
+
+// create expense
+export const createExpense = ({ name, amount, budgetId }) => {
+    const newItem = {
+        id: crypto.randomUUID(),
+        name: name,
+        createdAt: Date.now(),
+        amount: +amount,
+        budgetId: budgetId
+    }
+    const existingExpenses = fetchData('expenses') ?? [];
+    return localStorage.setItem('expenses', JSON.stringify([...existingExpenses, newItem]));
 }

@@ -2,11 +2,12 @@
 import { useLoaderData } from "react-router-dom";
 
 // helper functions
-import { createBudget, fetchData } from "../helpers";
+import { createBudget, createExpense, fetchData, wait } from "../helpers";
 
 // components
 import Intro from "../components/Intro.jsx";
 import AddBudgetForm from "../components/AddBudgetForm";
+import AddExpenseForm from "../components/AddExpenseForm";
 
 // libraries
 import { toast } from "react-toastify";
@@ -19,9 +20,10 @@ export function dashboardLoader() {
 }
 
 export async function dashboardAction({ request }) {
+  await wait();
+
   const data = await request.formData();
   const { _action, ...values } = Object.fromEntries(data);
-  console.log("🚀 ~ file: Dashboard.jsx:24 ~ dashboardAction ~ _action:", _action);
 
   // new user submission
   if (_action === "newUser") {
@@ -43,6 +45,21 @@ export async function dashboardAction({ request }) {
       throw new Error("There was a problem creating your budget!");
     }
   }
+
+  // expense added
+  if (_action === "createExpense") {
+    try {
+      // create expense
+      createExpense({
+        name: values.newExpense,
+        amount: values.newExpenseAmount,
+        budgetId: values.newExpenseBudget,
+      });
+      return toast.success(`Expense ${values.newExpense} created!`);
+    } catch (e) {
+      throw new Error("There was a problem creating your expense!");
+    }
+  }
 }
 
 const Dashboard = () => {
@@ -57,11 +74,20 @@ const Dashboard = () => {
           </h1>
           <div className="grid-sm">
             {/* budgets ? () : () */}
-            <div className="grid-lg">
-              <div className="flex-lg">
+            {budgets && budgets.length > 0 ? (
+              <div className="grid-lg">
+                <div className="flex-lg">
+                  <AddBudgetForm></AddBudgetForm>
+                  <AddExpenseForm budgets={budgets}></AddExpenseForm>
+                </div>
+              </div>
+            ) : (
+              <div className="grid-sm">
+                <p>Presonal budgeting is the secret to financial freedom</p>
+                <p>Create a budget to get started!</p>
                 <AddBudgetForm></AddBudgetForm>
               </div>
-            </div>
+            )}
           </div>
         </div>
       ) : (
