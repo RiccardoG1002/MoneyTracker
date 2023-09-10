@@ -7,7 +7,6 @@ import { useFetcher } from "react-router-dom";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
 
 const AddExpenseForm = ({ budgets }) => {
-  console.log("🚀 ~ file: AddExpenseForm.jsx:10 ~ AddExpenseForm ~ budgets:", budgets);
   const fetcher = useFetcher();
 
   const isSubmitting = fetcher.state === "submitting";
