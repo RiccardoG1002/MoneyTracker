@@ -1,5 +1,5 @@
 // rrd imports
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 // helper functions
 import { createBudget, createExpense, fetchData, wait } from "../helpers";
@@ -93,7 +93,12 @@ const Dashboard = () => {
                 {expenses && expenses.length > 0 && (
                   <div className="grid-md">
                     <h2>Recent Expenses</h2>
-                    <Table expenses={expenses.sort((a, b) => b.createdAt - a.createdAt)}></Table>
+                    <Table expenses={expenses.sort((a, b) => b.createdAt - a.createdAt).slice(0, 8)}></Table>
+                    {expenses.length > 8 && (
+                      <Link to="expenses" className="btn btn--dark">
+                        View All Expenses
+                      </Link>
+                    )}
                   </div>
                 )}
               </div>
