@@ -2,7 +2,7 @@
 import { Link, useLoaderData } from "react-router-dom";
 
 // helper functions
-import { createBudget, createExpense, fetchData, wait } from "../helpers";
+import { createBudget, createExpense, deleteObject, fetchData, wait } from "../helpers";
 
 // components
 import Intro from "../components/Intro.jsx";
@@ -62,6 +62,21 @@ export async function dashboardAction({ request }) {
       return toast.success(`Expense ${values.newExpense} created!`);
     } catch (e) {
       throw new Error("There was a problem creating your expense!");
+    }
+  }
+
+  // expense deleted
+  if (_action === "deleteExpense") {
+    try {
+      // delete expense
+      deleteObject({
+        key: "expenses",
+        id: values.expenseId,
+      });
+      // display toast
+      return toast.success("Expense deleted!");
+    } catch (e) {
+      throw new Error("There was a problem deleting your expense!");
     }
   }
 }
