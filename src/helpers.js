@@ -1,5 +1,5 @@
 // simulate synchronous calls
-export const wait = () => new Promise(res => setTimeout(res, Math.random() * 2000));
+export const wait = () => new Promise(res => setTimeout(res, Math.random() * 800));
 
 // generate random color
 const generateRandomColor = () => {
