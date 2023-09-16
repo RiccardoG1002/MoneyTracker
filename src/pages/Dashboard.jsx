@@ -99,7 +99,7 @@ const Dashboard = () => {
                   <AddBudgetForm></AddBudgetForm>
                   <AddExpenseForm budgets={budgets}></AddExpenseForm>
                 </div>
-                <h2>Exisitng Budgets</h2>
+                <h2>Existing Budgets</h2>
                 <div className="budgets">
                   {budgets.map((budget) => (
                     <BudgetItem key={budget.id} budget={budget}></BudgetItem>
